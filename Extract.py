@@ -27,7 +27,7 @@ def get_access_token():
 
     # Check for successful response
     if get_token.status_code == 200:  
-        data_dict = get_token.json() 
+        data_dict = get_token.json()
     else:
         print("Error:", get_token.text)
     return data_dict
@@ -44,6 +44,7 @@ def return_df():
     r = requests.get("https://api.spotify.com/v1/albums?ids=382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc&market=IN",headers=input_variables)
     
     req_data = r.json()
+
     
     artist_names = []
     album_names = []
@@ -81,9 +82,10 @@ def return_df():
     }
 
 
-    df = pd.DataFrame(songs, columns=["Albums","Song","Artist","Duration"])
-    
+    # df = pd.DataFrame(songs.items(), columns=["Albums","Song","Artist","Duration"])
+    df = pd.DataFrame.from_dict(songs)
     return df 
 
-return_df()
+if __name__ == "__main__":
+    return_df()
 # print(USER_ID, USER_SECRET)
